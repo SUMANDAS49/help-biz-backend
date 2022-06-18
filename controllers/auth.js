@@ -51,7 +51,8 @@ exports.signInHandler = (req, res) => {
                         );
                     return res.status(200).json({
                         user,
-                        token
+                        token,
+                        error: null
                     })
                 }
                 else {

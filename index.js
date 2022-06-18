@@ -29,6 +29,9 @@ app.use(cors())
 
 app.use("/api/auth/", authRoutes)
 app.use("/api/invoice/", invoiceRoutes)
+app.get("/ok", (req, res) => {
+    return res.status(200).send("<h1>hi</h1>")
+})
 
 
 app.listen(port, () => {

@@ -34,7 +34,8 @@ exports.makeInvoice = (req, res) => {
                     to: JSON.stringify(req.body.customerDetails.email),
                     subject: `${req.body.storeDetails.name} invoice`,
                     html: `<h4>Dear ${req.body.customerDetails.name}! Thanks for visiting ${req.body.storeDetails.name}</h4>
-                    <a href="http://localhost:3000/invoice/display/email/${inv._id}">click here ti see the invoice</a>
+                    /* <a href="http://localhost:3000/invoice/display/email/${inv._id}">click here ti see the invoice</a>*/
+                    <a href="https://helpbiz.herokuapp.com/invoice/display/email/${inv._id}">click here ti see the invoice</a>
                     `
                 };
 
@@ -108,4 +109,18 @@ exports.searchInvoiceByCustomersEmail = (req, res) => {
             }
             return res.status(200).json(reqInv)
         })
+}
+
+exports.getInvoicesByCustomerMail = (req, res) => {
+    console.log(req.query.email)
+    // res.status(200).json({ message: "Hello" })
+    Invoice.find({ "customerDetails.email": req.query.email }, (err, data) => {
+        if (err) {
+            return res.status(404).json({ error: true, message: "something went wrong" })
+        }
+        return res.status(200).json({
+            error: false,
+            data
+        })
+    })
 }
